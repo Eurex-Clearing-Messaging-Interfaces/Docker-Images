@@ -1,6 +1,6 @@
 #####
 #
-# Eurex Clearing FIXML Interface
+# Eurex Clearing FpML Interface
 #
 ####
 FROM		scholzj/merge-messaging:3.0.2
