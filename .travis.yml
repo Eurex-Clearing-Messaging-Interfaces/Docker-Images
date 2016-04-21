@@ -7,3 +7,4 @@ services:
 
 script:
   - docker build -t ecmi/fixml:sim .
+  - docker tun -i ecmi/fixml:sim
