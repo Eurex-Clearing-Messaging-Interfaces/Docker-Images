@@ -1,6 +1,6 @@
 #####
 #
-# Eurex Clearing FpML Interface
+# Eurex Clearing Margin Calculator Interface
 #
 ####
 FROM		scholzj/merge-messaging:3.0.2
