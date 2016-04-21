@@ -7,6 +7,6 @@ services:
 
 script:
   - docker build -t ecmi/fixml:prod .
-  - docker tag -f ecmi/fixml:sim docker.io/ecmi/fixml:prod
+  - docker tag -f ecmi/fixml:prod docker.io/ecmi/fixml:prod
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
   - docker push ecmi/fixml:prod
