@@ -1,9 +1,9 @@
 #####
 #
-# Eurex Clearing Margin Calculator Interface
+# Eurex Clearing Enhanced Risk Solution Interface
 #
 ####
-FROM		scholzj/merge-messaging:3.0.2
+FROM		scholzj/merge-messaging:2.5.13
 MAINTAINER      Jakub Scholz
 
 # Add configuration files

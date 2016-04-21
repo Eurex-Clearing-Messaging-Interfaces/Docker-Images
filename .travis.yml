@@ -7,8 +7,8 @@ services:
 
 script:
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - docker build -t ecmi/mc:sim .
-  - docker tag -f ecmi/mc:sim docker.io/ecmi/mc:sim
-  - docker tag -f ecmi/mc:sim docker.io/ecmi/mc:latest
-  - docker push ecmi/mc:sim
-  - docker push ecmi/mc:latest
+  - docker build -t ecmi/ers:sim .
+  - docker tag -f ecmi/ers:sim docker.io/ecmi/ers:sim
+  - docker tag -f ecmi/ers:sim docker.io/ecmi/ers:latest
+  - docker push ecmi/ers:sim
+  - docker push ecmi/ers:latest
