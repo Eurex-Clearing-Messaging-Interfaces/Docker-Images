@@ -17,7 +17,7 @@ install:
 
 script:
   - docker build -t ecmi/fixml:sim .
-    bats tests.bats
+  - bats tests.bats
 
 after_success:
   - docker tag -f ecmi/fixml:sim docker.io/ecmi/fixml:sim
