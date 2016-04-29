@@ -5,9 +5,22 @@ sudo: required
 services:
   - docker
 
+addons:
+  hosts:
+    - ersd01
+
+install:
+  - sudo add-apt-repository ppa:duggan/bats --yes
+  - sudo add-apt-repository ppa:qpid/released  --yes
+  - sudo apt-get update -q
+  - sudo apt-get install -q libsasl2-2 libsasl2-modules libsasl2-modules-db bats qpid-send qpid-receive
+
 script:
-  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
   - docker build -t ecmi/ers:sim .
+  - bats tests.bats
+
+after_success:
+  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
   - docker tag -f ecmi/ers:sim docker.io/ecmi/ers:sim
   - docker tag -f ecmi/ers:sim docker.io/ecmi/ers:latest
   - docker push ecmi/ers:sim
