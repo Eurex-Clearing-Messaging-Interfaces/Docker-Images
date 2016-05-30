@@ -22,6 +22,4 @@ script:
 after_success:
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
   - docker tag -f ecmi/ers:sim docker.io/ecmi/ers:sim20160616
-  - docker tag -f ecmi/ers:sim docker.io/ecmi/ers:latest
   - docker push ecmi/ers:sim-20160616
-  - docker push ecmi/ers:latest
