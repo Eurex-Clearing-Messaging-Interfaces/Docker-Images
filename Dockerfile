@@ -3,7 +3,7 @@
 # Eurex Clearing Enhanced Risk Solution Interface
 #
 ####
-FROM		scholzj/merge-messaging:2.5.13
+FROM		scholzj/merge-messaging:3.2
 MAINTAINER      Jakub Scholz
 
 # Add configuration files
