@@ -23,3 +23,5 @@ after_success:
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
   - docker tag -f ecmi/ers:sim docker.io/ecmi/ers:sim
   - docker push ecmi/ers:sim
+  - docker tag -f ecmi/ers:sim docker.io/ecmi/ers:latest
+  - docker push ecmi/ers:latest
