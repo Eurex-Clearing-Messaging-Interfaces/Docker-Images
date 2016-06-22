@@ -23,9 +23,9 @@ sslPort() {
 
 @test "Test request / response with AMQP 0-10" {
     cont=$(sudo docker run -P -d $IMAGE:$VERSION)
+    sleep 5 # give the image time to start
     tcp=$(tcpPort)
     ssl=$(sslPort)
-    sleep 5 # give the image time to start
 
     # Due to a bug in qpid-receive, the response routing key used has to be the same as the request routing key
     # qpid-recieve sends the received message back to the reply-to, but doesn't reset the subject which messes up the routing of the response
@@ -46,9 +46,9 @@ sslPort() {
 
 @test "Test public broadcasts with AMQP 0-10" {
     cont=$(sudo docker run -P -d $IMAGE:$VERSION)
+    sleep 5 # give the image time to start
     tcp=$(tcpPort)
     ssl=$(sslPort)
-    sleep 5 # give the image time to start
 
     qpid-receive -b ersd01:$ssl --connection-options "{ transport: ssl, sasl_mechanism: EXTERNAL }" -a "eurex.tmp.ABCFR.broadcast_queue_1; {create: receiver, assert: never, node: { type: queue, x-declare: { auto-delete: true, exclusive: false, arguments: {'qpid.policy_type': ring, 'qpid.max_count': 1000, 'qpid.max_size': 1000000}}, x-bindings: [{exchange: 'eurex.broadcast', queue: 'eurex.tmp.ABCFR.broadcast_queue_1', key: 'public.#'}]}}" -m 1 -f --report-total --report-header no &> bcast-010.txt &
     pid=$!
@@ -65,9 +65,9 @@ sslPort() {
 
 @test "Test private broadcasts with AMQP 0-10" {
     cont=$(sudo docker run -P -d $IMAGE:$VERSION)
+    sleep 5 # give the image time to start
     tcp=$(tcpPort)
     ssl=$(sslPort)
-    sleep 5 # give the image time to start
 
     qpid-receive -b ersd01:$ssl --connection-options "{ transport: ssl, sasl_mechanism: EXTERNAL }" -a "eurex.tmp.ABCFR.broadcast_queue_1; {create: receiver, assert: never, node: { type: queue, x-declare: { auto-delete: true, exclusive: false, arguments: {'qpid.policy_type': ring, 'qpid.max_count': 1000, 'qpid.max_size': 1000000}}, x-bindings: [{exchange: 'eurex.broadcast', queue: 'eurex.tmp.ABCFR.broadcast_queue_1', key: 'ABCFR.#'}]}}" -m 1 -f --report-total --report-header no &> bcast-priv-010.txt &
     pid=$!
