@@ -11,7 +11,6 @@ setup() {
 
 teardown() {
     sudo docker stop $cont
-    sudo docker rm $cont
 }
 
 tcpPort() {
