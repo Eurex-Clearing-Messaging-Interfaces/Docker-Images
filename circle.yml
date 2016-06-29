@@ -29,3 +29,7 @@ deployment:
 notify:
   webhooks:
     - url: https://circleci.com/api/v1/project/Eurex-Clearing-Messaging-Interfaces/Java-Code-Examples?circle-token=69b19231357de7ac60fbe9d7d0c7b30cf9cdc2e5
+    - url: https://circleci.com/api/v1/project/Eurex-Clearing-Messaging-Interfaces/C-Code-Examples?circle-token=69b19231357de7ac60fbe9d7d0c7b30cf9cdc2e5
+    - url: https://circleci.com/api/v1/project/Eurex-Clearing-Messaging-Interfaces/Dispatch-Examples?circle-token=69b19231357de7ac60fbe9d7d0c7b30cf9cdc2e5
+    - url: https://circleci.com/api/v1/project/Eurex-Clearing-Messaging-Interfaces/Python-Code-Examples?circle-token=69b19231357de7ac60fbe9d7d0c7b30cf9cdc2e5
+    - url: https://circleci.com/api/v1/project/Eurex-Clearing-Messaging-Interfaces/Vert.x-Examples?circle-token=69b19231357de7ac60fbe9d7d0c7b30cf9cdc2e5
