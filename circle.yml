@@ -25,3 +25,7 @@ deployment:
       - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
       - docker push ecmi/fixml:sim
       - docker push ecmi/fixml:latest
+      
+notify:
+  webhooks:
+    - url: https://circleci.com/api/v1/project/Eurex-Clearing-Messaging-Interfaces/Java-Code-Examples?circle-token=69b19231357de7ac60fbe9d7d0c7b30cf9cdc2e5
