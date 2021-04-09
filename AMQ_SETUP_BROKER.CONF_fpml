@@ -1,0 +1,36 @@
+# Accounts (mandatory group) - 'password' and 'certificates' properties are optional, if present, value in xml file will be overwritten by value in this file
+# account name      , property[,ies]
+/ACCOUNT
+amqpsrv             , secure=false , password=12345678
+ABCFR_ABCFRALMMACC1 , secure=true  , certificates=abcfr_abcfralmmacc1
+
+/ACCOUNT_CM
+
+# Templates (optional groups) - there are no mandatory properties, optional properties are 'password' and 'certificates', property defined in custom group has priority
+
+# Queues (mandatory group)
+# queue name         , consumer  , exclusion[,s]    , property[,ies]
+/QUEUE
+broadcast.<ACCOUNT>.TradeNotification       , <ACCOUNT>     , !ACCOUNT=amqpsrv , type=standard , size=268435456 , count=-1   , policy=ring   , purge=false , read_only=false , persistent_messages=true
+broadcast.<ACCOUNT_CM>.TradeNotificationNCM , <ACCOUNT_CM>  ,                  , type=standard , size=268435456 , count=-1   , policy=ring   , purge=false , read_only=false , persistent_messages=true
+request_be.<ACCOUNT>                        , amqpsrv       , !ACCOUNT=amqpsrv , type=standard , size=1024000   , count=-1   , policy=reject , purge=true  , read_only=false , persistent_messages=true
+response.<ACCOUNT>                          , <ACCOUNT>     , !ACCOUNT=amqpsrv , type=standard , size=52428800  , count=1000 , policy=ring   , purge=false , read_only=false , persistent_messages=true
+
+# Exchanges (mandatory group)
+# exchange name   , binding account , exclusion[s]     , property[,ies]
+/EXCHANGE
+broadcast         ,                 ,                  , type=topic , unroutable_message_behaviour=reject , alt_exchange=broadcast_resend
+broadcast_resend  ,                 ,                  , type=topic , unroutable_message_behaviour=reject
+request.<ACCOUNT> ,                 , !ACCOUNT=amqpsrv , type=topic , unroutable_message_behaviour=reject
+response          ,                 ,                  , type=topic , unroutable_message_behaviour=reject
+
+# Bindings (mandatory group)
+# exchange name   , binding                                                      , queue name                                  , producer  , exclusions
+/BINDING
+broadcast         , broadcast.<ACCOUNT[([A-Z]{5})_.*]>.TradeNotification.#       , broadcast.<ACCOUNT>.TradeNotification       , amqpsrv   , !ACCOUNT=amqpsrv
+broadcast         , broadcast.<ACCOUNT_CM[([A-Z]{5})_.*]>.TradeNotificationNCM.# , broadcast.<ACCOUNT_CM>.TradeNotificationNCM , amqpsrv   ,
+broadcast_resend  , resend.broadcast.<ACCOUNT>.TradeNotification.#               , broadcast.<ACCOUNT>.TradeNotification       , amqpsrv   , !ACCOUNT=amqpsrv
+broadcast_resend  , resend.broadcast.<ACCOUNT_CM>.TradeNotificationNCM.#         , broadcast.<ACCOUNT_CM>.TradeNotificationNCM , amqpsrv   ,
+request.<ACCOUNT> , #                                                            , request_be.<ACCOUNT>                        , <ACCOUNT> , !ACCOUNT=amqpsrv
+response          , response.<ACCOUNT>                                           , response.<ACCOUNT>                          , amqpsrv   , !ACCOUNT=amqpsrv
+

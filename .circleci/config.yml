@@ -4,9 +4,9 @@ jobs:
     machine: true 
     steps:
       - checkout
-      - run: sudo hostnamectl set-hostname ecag-fixml-sim1
-      - run: sudo sed -i 's/127.0.0.1 localhost/127.0.0.1 localhost ecag-fixml-sim1/g' /etc/hosts
-      - run: docker build -t ecmi/fixml:sim .
-      - run: docker tag ecmi/fixml:sim docker.io/ecmi/fixml:sim
+      - run: sudo hostnamectl set-hostname ecag-fpml-sim1
+      - run: sudo sed -i 's/127.0.0.1 localhost/127.0.0.1 localhost ecag-fpml-sim1/g' /etc/hosts
+      - run: docker build -t ecmi/fpml:sim .
+      - run: docker tag ecmi/fpml:sim docker.io/ecmi/fpml:sim
       - run: docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-      - run: docker push ecmi/fixml:sim
+      - run: docker push ecmi/fpml:sim
