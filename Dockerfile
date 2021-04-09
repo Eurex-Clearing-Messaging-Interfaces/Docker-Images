@@ -3,8 +3,8 @@ MAINTAINER Antonin Vyborny
 
 # Add configuration files
 RUN mkdir /home/oper
-COPY ./fixml-dev.zip /home/oper/
-RUN unzip /home/oper/fixml-dev.zip -d /home/oper/
+COPY ./fixml-sim.zip /home/oper/
+RUN unzip /home/oper/fixml-sim.zip -d /home/oper/
 COPY ./entrypoint.sh /home/oper/
 RUN chown -R root:root /home/oper/
 
