@@ -1,19 +1,13 @@
-#####
-#
-# Eurex Clearing FIXML Interface
-#
-####
-FROM		scholzj/merge-messaging:3.0.2
-MAINTAINER      Jakub Scholz
+FROM vyboant/centos-java
+MAINTAINER Antonin Vyborny
 
 # Add configuration files
-USER root
-COPY ./var /var
-RUN chown -R 1001:0 /var/lib/qpidd
-
-# Switch to qpidd user
-USER 1001
+RUN mkdir /home/oper
+COPY ./fixml-dev.zip /home/oper/
+RUN unzip /home/oper/fixml-dev.zip -d /home/oper/
+COPY ./entrypoint.sh /home/oper/
+RUN chown -R root:root /home/oper/
 
 # Run the broker
-EXPOSE 5671 5672
-CMD    /usr/sbin/qpidd --config /var/lib/qpidd/etc/qpidd.conf
+ENTRYPOINT [ "/bin/sh", "-c", "/home/oper/entrypoint.sh" ]
+EXPOSE 10000 20000 40000
