@@ -6,7 +6,7 @@ jobs:
       - checkout
       - run: sudo hostnamectl set-hostname ecag-macal-sim1
       - run: sudo sed -i 's/127.0.0.1 localhost/127.0.0.1 localhost ecag-macal-sim1/g' /etc/hosts
-      - run: docker build -t ecmi/macal:sim .
-      - run: docker tag ecmi/macal:sim docker.io/ecmi/macal:sim
+      - run: docker build -t ecmi/mc:sim .
+      - run: docker tag ecmi/mc:sim docker.io/ecmi/mc:sim
       - run: docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-      - run: docker push ecmi/macal:sim
+      - run: docker push ecmi/mc:sim
