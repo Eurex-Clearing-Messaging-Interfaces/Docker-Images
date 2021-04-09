@@ -8,5 +8,5 @@ jobs:
       - run: sudo sed -i 's/127.0.0.1 localhost/127.0.0.1 localhost ecag-fixml-dev1/g' /etc/hosts
       - run: docker build -t ecmi/fixml:dev .
       - run: docker tag ecmi/fixml:dev docker.io/ecmi/fixml:dev
-      - run: docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+      - run: docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
       - run: docker push ecmi/fixml:dev
