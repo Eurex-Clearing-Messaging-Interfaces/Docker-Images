@@ -3,8 +3,8 @@ MAINTAINER Antonin Vyborny
 
 # Add configuration files
 RUN mkdir /home/oper
-COPY ./fpml-sim.zip /home/oper/
-RUN unzip /home/oper/fpml-sim.zip -d /home/oper/
+COPY ./macal-sim.zip /home/oper/
+RUN unzip /home/oper/macal-sim.zip -d /home/oper/
 COPY ./entrypoint.sh /home/oper/
 RUN chown -R root:root /home/oper/
 

@@ -1,0 +1,27 @@
+# Accounts (mandatory group) - 'password' and 'certificates' properties are optional, if present, value in xml file will be overwritten by value in this file
+# account name      , property[,ies]
+/ACCOUNT
+amqpsrv             , secure=false , password=12345678
+ABCFR_ABCFRALMMACC1 , secure=true  , certificates=abcfr_abcfralmmacc1
+
+# Templates (optional groups) - there are no mandatory properties, optional properties are 'password' and 'certificates', property defined in custom group has priority
+
+# Queues (mandatory group)
+# queue name         , consumer  , exclusion[,s]    , property[,ies]
+/QUEUE
+request_be.<ACCOUNT> , amqpsrv   , !ACCOUNT=amqpsrv , type=standard , size=1024000  , count=-1   , policy=reject , purge=true  , read_only=false , persistent_messages=true
+response.<ACCOUNT>   , <ACCOUNT> , !ACCOUNT=amqpsrv , type=standard , size=10240000 , count=1000 , policy=ring   , purge=false , read_only=false , persistent_messages=true
+
+# Exchanges (mandatory group)
+# exchange name   , binding account , exclusion[s]     , property[,ies]
+/EXCHANGE
+request.<ACCOUNT> ,                 , !ACCOUNT=amqpsrv , type=topic , unroutable_message_behaviour=reject
+response          ,                 ,                  , type=topic , unroutable_message_behaviour=reject
+
+# Bindings (mandatory group)
+# exchange name   , binding            , queue name           , producer  , exclusions
+/BINDING
+request.<ACCOUNT> , #                  , request_be.<ACCOUNT> , <ACCOUNT> , !ACCOUNT=amqpsrv
+response          , response.<ACCOUNT> , response.<ACCOUNT>   , amqpsrv   , !ACCOUNT=amqpsrv
+
+
